@@ -1,11 +1,22 @@
 import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import './Expenses.scss';
+import ExpenseFilter from "../ExpenseFilter/ExpenseFilter";
+import { useState } from "react";
 
 function Expenses(props) {
 
+    const [period, setPeriod] = useState('');
+
+    const getPeriod = (response) => {
+        console.log('response ', response);
+        setPeriod(response);
+    }
+
     return (
-        <Card className="expenses">
+        <div>
+            <Card className="expenses">
+            <ExpenseFilter slected={period} onChangePeriod={getPeriod} />
             <ExpenseItem
                 title={props.expenses[0].title}
                 amount={props.expenses[0].amount}
@@ -27,6 +38,7 @@ function Expenses(props) {
                 date={props.expenses[3].date}
             />
         </Card>
+        </div>
     );
 }
 
