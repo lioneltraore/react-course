@@ -1,34 +1,28 @@
-import ExpenseItem from "./ExpenseItem";
+
 import Card from "../UI/Card";
 import "./Expenses.scss";
 import ExpenseFilter from "../ExpenseFilter/ExpenseFilter";
 import { useState } from "react";
+import ExpensesList from "./ExpensesList";
 
 function Expenses(props) {
-  const [period, setPeriod] = useState("");
-  const [filtered, setFiltered] = useState(props.expenses);
+  const [period, setPeriod] = useState("2020");
 
   const getPeriod = (response) => {
     console.log("response ", response);
     setPeriod(response);
-    // props.onGetPeriod(response);
-
-    setFiltered(filtered.filter(item => new Date(item.date).getFullYear().toString() === response));
-    
   };
+
+  const filtered = props.expenses.filter(expense => {
+    console.log('filter attempt')
+    return new Date(expense.date).getFullYear().toString() === period;
+  })
 
   return (
     <div>
       <Card className="expenses">
-        <ExpenseFilter slected={period} onChangePeriod={getPeriod} />
-        {filtered.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        <ExpenseFilter selected={period} onChangePeriod={getPeriod} />
+        <ExpensesList items={filtered} />
       </Card>
     </div>
   );

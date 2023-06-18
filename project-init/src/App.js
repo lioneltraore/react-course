@@ -36,16 +36,11 @@ function App() {
     });
   }
 
-  const setFilter = (period) => {
-    console.log('set filter');
-    setExpenses(expenses.filter(item => new Date(item.date).getFullYear().toString() === period))
-  }
-
   return (
     <div>
       <h2>Let's get started</h2>
       <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses onGetPeriod={setFilter} expenses = {expenses} />
+      <Expenses expenses = {expenses} />
     </div>
   );
 }

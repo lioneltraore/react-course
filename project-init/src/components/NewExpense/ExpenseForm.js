@@ -6,6 +6,7 @@ function ExpenseForm(props) {
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredAmount, setEnteredAmount] = useState('');
     const [enteredDate, setEnteredDate] = useState('');
+    const [editMode, setEditMode] = useState(false);
 
     const titleChangeHandler = (event) => {
         console.log(event.target.value);
@@ -22,7 +23,7 @@ function ExpenseForm(props) {
         setEnteredDate(event.target.value);
     }
 
-    const submitHandler = (event)=> {
+    const submitHandler = (event) => {
         event.preventDefault();
 
         const expenseData = {
@@ -37,7 +38,20 @@ function ExpenseForm(props) {
         setEnteredAmount('');
         setEnteredDate('');
         setEnteredTitle('');
+        editModeHandler();
 
+    }
+
+    const editModeHandler = () => {
+        setEditMode(prevValue => !prevValue);
+    }
+
+    if (!editMode) {
+        return (
+            <div>
+                <button onClick={editModeHandler}>Add New Expense</button>
+            </div>
+        );
     }
 
     return (
@@ -57,7 +71,8 @@ function ExpenseForm(props) {
                 </div>
             </div>
             <div className="new-expense__actions">
-                <button type="submit">Add New Expense</button>
+                <button onClick={editModeHandler} type="reset">Cancel</button>
+                <button type="submit">Add Expense</button>
             </div>
         </form>
     );
