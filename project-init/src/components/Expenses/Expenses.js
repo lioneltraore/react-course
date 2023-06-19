@@ -4,6 +4,7 @@ import "./Expenses.scss";
 import ExpenseFilter from "../ExpenseFilter/ExpenseFilter";
 import { useState } from "react";
 import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
 
 function Expenses(props) {
   const [period, setPeriod] = useState("2020");
@@ -22,6 +23,7 @@ function Expenses(props) {
     <div>
       <Card className="expenses">
         <ExpenseFilter selected={period} onChangePeriod={getPeriod} />
+        <ExpensesChart expenses={filtered} />
         <ExpensesList items={filtered} />
       </Card>
     </div>
