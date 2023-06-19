@@ -1,4 +1,5 @@
 import ChartBar from "./ChartBar";
+import "./Chart.scss";
 
 function Chart(props) {
 
